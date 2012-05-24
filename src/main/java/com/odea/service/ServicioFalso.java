@@ -1,4 +1,4 @@
-package com.odea;
+package com.odea.service;
 
 import org.springframework.stereotype.Service;
 
