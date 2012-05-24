@@ -9,17 +9,25 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 public class TestPage extends WebPage {
     private static final long serialVersionUID = 1L;
-    private String msg = " aver";
+
     Model<String> model = new Model<String>() {
         private int counter = 0;
+        String msg = " aver";
+
+        @Override
+        public void setObject(String object) {
+            this.msg = object;
+        }
 
         public String getObject() {
+
             return msg + counter++;
         }
     };
@@ -36,15 +44,16 @@ public class TestPage extends WebPage {
         //spring bean
         System.out.println("ServicioFalso dice que : " + servicioFalso.getMsg());
 
+        final Label contador = new Label("contador",model);
 
-        final Label feedback = new Label("feedback",model);
-        feedback.setOutputMarkupId(true);
-        add(feedback);
+        contador.setOutputMarkupId(true);
+        add(contador);
 
         Form form = new Form("form");
         add(form);
         form.setOutputMarkupId(true);
-        FormComponent fc = new RequiredTextField<String>("ajax-msg");
+
+        final FormComponent fc = new RequiredTextField<String>("ajax-msg",new Model<String>());
         form.add(fc);
 
         form.add(new AjaxButton("ajax-button", form)
@@ -52,16 +61,18 @@ public class TestPage extends WebPage {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form)
             {
-
-                // repaint the feedback panel so that it is hidden
-                target.add(feedback);
+                if(fc.getInput() != null){
+                    model.setObject(fc.getInput());
+                }
+                
+                target.add(contador);
             }
 
             @Override
             protected void onError(AjaxRequestTarget target, Form<?> form)
             {
                 // repaint the feedback panel so errors are shown
-                target.add(feedback);
+                target.add(contador);
             }
         });
          /*
