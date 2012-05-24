@@ -1,6 +1,8 @@
 package com.odea;
 
+import com.odea.components.composed.tabbedmenu.TabbedMenu;
 import com.odea.components.menu.Menu;
+import com.odea.components.tabpanel.TabPanel;
 import com.odea.service.ServicioFalso;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -40,9 +42,11 @@ public class TestPage extends WebPage {
 
 
         
-        add(new Menu("menu-odea"));
-        //spring bean
-        System.out.println("ServicioFalso dice que : " + servicioFalso.getMsg());
+        //add(new Menu("menu-odea"));
+        add(new TabPanel("tab-panel"));
+
+                //spring bean
+                System.out.println("ServicioFalso dice que : " + servicioFalso.getMsg());
 
         final Label contador = new Label("contador",model);
 
