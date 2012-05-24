@@ -1,6 +1,6 @@
 .menu{
     width: 100%; /* The menu should be the entire width of it's surrounding object, in this case the whole page */
-    background-color: #CC9900;} /* dark grey bg */
+    background-color: #CC9900;}
 
 .menu ul{
     margin: 0;
