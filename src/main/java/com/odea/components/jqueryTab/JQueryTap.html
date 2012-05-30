@@ -1,0 +1,33 @@
+<wicket:panel>
+    <html>
+    <head>
+        <wicket:link>
+            <link type="text/css" href="css/ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet"/>
+            <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+            <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+        </wicket:link>
+        <script type="text/javascript">
+            $(function () {
+                $("#tabpanel").tabs();
+            });
+        </script>
+    </head>
+    <body>
+
+    <div id="tabpanel">
+
+        <ul>
+            <li wicket:id="titles"><a wicket:id="link" href="#tiene_que_ser_igual_que_el_id_del_content">
+                <span wicket:id="nombre">[[TITULO DEL TAB]]</span>
+            </a>
+            </li>
+        </ul>
+
+    <span wicket:id="panels">
+        <div wicket:id="content" id="user">[[CONTENIDO]]</div>
+    </span>
+
+    </div>
+    </body>
+    </html>
+</wicket:panel>

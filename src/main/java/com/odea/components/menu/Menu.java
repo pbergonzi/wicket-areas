@@ -1,6 +1,5 @@
 package com.odea.components.menu;
 
-import org.apache.wicket.Component;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.basic.Label;
@@ -17,7 +16,7 @@ public class Menu extends Panel implements IHeaderContributor {
         super(id);
         WebMarkupContainer outerDiv = new WebMarkupContainer("menu");
         List<MenuItem> menuItems = new ArrayList<MenuItem>();
-        for(int i=0;i<10;i++){
+        for (int i = 0; i < 10; i++) {
             menuItems.add(new MenuItem() {
                 public Label getLabel(String headerWicketId) {
                     return new Label(headerWicketId, "link");
@@ -46,6 +45,7 @@ public class Menu extends Panel implements IHeaderContributor {
         @Override
         protected void populateItem(final ListItem<MenuItem> item) {
             MenuItem menuItem = item.getModelObject();
+
             item.add(menuItem.getLink("url").add(menuItem.getLabel("nombre")));
         }
 
