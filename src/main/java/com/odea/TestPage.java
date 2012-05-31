@@ -1,6 +1,7 @@
 package com.odea;
 
 
+import com.odea.components.grid.DataTable;
 import com.odea.components.jqueryTab.JQueryTap;
 import com.odea.components.menu.Menu;
 import com.odea.service.ServicioFalso;
@@ -17,9 +18,6 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TestPage extends WebPage {
     private static final long serialVersionUID = 1L;
@@ -43,12 +41,7 @@ public class TestPage extends WebPage {
     private ServicioFalso servicioFalso;
 
     public TestPage(final PageParameters parameters) {
-
-        List<ITab> lst = new ArrayList<ITab>();
-        lst.add(new ETab());
-        lst.add(new ETab());
-        lst.add(new ETab());
-        //add(new Menu("menu-odea"));
+        add(new DataTable("tabla"));
         add(new JQueryTap("tab-panel"));
 
         //spring bean

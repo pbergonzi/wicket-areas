@@ -1,0 +1,33 @@
+<wicket:panel>
+<html>
+<head>
+    <wicket:link>
+        <script type="text/javascript" src="media/js/jquery.dataTables.js"></script>
+        <link type="text/css" href="media/css/jquery.dataTables.css" rel="stylesheet"/>
+    </wicket:link>
+
+    <script type="text/javascript">
+        $(function () {
+            $('#tabla').dataTable();
+        });
+    </script>
+</head>
+<body>
+    <div style="width: 980px">
+        <table id="tabla">
+            <thead>
+            <tr wicket:id="columnas" >
+                <th wicket:id="columna">[[NOMBRE DE LA COLUMNA]]</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr wicket:id="filas">
+                <td wicket:id="celdas">[[DATO]]</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>
+</wicket:panel>

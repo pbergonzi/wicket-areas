@@ -77,5 +77,21 @@ public class JQueryTap extends Panel implements IHeaderContributor {
             menu.setOutputMarkupId(true);
             return menu;
         }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            MenuTab menuTab = (MenuTab) o;
+
+            return !(tabName != null ? !tabName.equals(menuTab.tabName) : menuTab.tabName != null);
+
+        }
+
+        @Override
+        public int hashCode() {
+            return tabName != null ? tabName.hashCode() : 0;
+        }
     }
 }
