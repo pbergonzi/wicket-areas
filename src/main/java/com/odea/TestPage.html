@@ -1,20 +1,29 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <wicket:link>
+        <link type="text/css" href="ui-lightness/jquery-ui-1.8.20.custom.css" rel="stylesheet"/>
+        <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery-ui-1.8.20.custom.min.js"></script>
+    </wicket:link>
 </head>
 <body>
 <div>
     <!--span wicket:id="menu-odea">[menu]</span-->
-    <span wicket:id="tab-panel" class="tabpanel">[menu]</span>
+    <!--span wicket:id="tab-panel" class="tabpanel">[menu]</span-->
 </div>
 
-<div wicket:id="contador">[[ contador ]]</div>
+<form class="jqueryid_form2" wicket:id="form1">
+    US State Lookup: <input class="jqueryid_state" type="text" wicket:id="state"/><br/>
+</form>
 
-<form wicket:id="form">
+<!--div wicket:id="contador">[[ contador ]]</div-->
+
+<!--form wicket:id="form">
     <label>AVER</label>: <input type="text" wicket:id="ajax-msg"/>
     <input type="submit" value="submit via ajax" wicket:id="ajax-button"/>
-</form>
-<div wicket:id="tabla">[[DA]]</div>
+</form-->
+<!--div wicket:id="tabla">[[DA]]</div-->
 <!--div>
 <table id="tabla-odea" class="tabla-odea" wicket:id="table">[table]</table>
 </div-->

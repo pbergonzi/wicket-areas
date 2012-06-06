@@ -1,6 +1,7 @@
 package com.odea;
 
 
+import com.odea.components.autocompleteBox.JQueryAutoCompleteTextBox;
 import com.odea.components.grid.DataTable;
 import com.odea.components.jqueryTab.JQueryTap;
 import com.odea.components.menu.Menu;
@@ -14,10 +15,17 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.FormComponent;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestPage extends WebPage {
     private static final long serialVersionUID = 1L;
@@ -40,9 +48,34 @@ public class TestPage extends WebPage {
     @SpringBean
     private ServicioFalso servicioFalso;
 
+    Form form1;
+    TextField stateTextField;
+    private String state = "";
+
     public TestPage(final PageParameters parameters) {
-        add(new DataTable("tabla"));
-        add(new JQueryTap("tab-panel"));
+
+
+        add(form1 = new Form<HomePage>("form1") {
+
+            @Override
+            protected void onSubmit() {
+                super.onSubmit();
+                Logger logger = LoggerFactory.getLogger(this.getClass());
+                logger.info("The user selected: " + state);
+            }
+        });
+
+        form1.add(stateTextField = new JQueryAutoCompleteTextBox<String>("state", new PropertyModel<String>(this, "state"),"input.jqueryid_state") {
+            @Override
+            public List<?> getResultados(String parametro) {
+                List<State> statesLike = StatesDb.getStatesLike(parametro.toString());
+                return statesLike;
+            }
+        });
+
+
+        //add(new DataTable("tabla"));
+        //add(new JQueryTap("tab-panel"));
 
         //spring bean
         System.out.println("ServicioFalso dice que : " + servicioFalso.getMsg());
@@ -50,10 +83,10 @@ public class TestPage extends WebPage {
         final Label contador = new Label("contador", model);
 
         contador.setOutputMarkupId(true);
-        add(contador);
+        //add(contador);
 
         Form form = new Form("form");
-        add(form);
+        //add(form);
         form.setOutputMarkupId(true);
 
         final FormComponent fc = new RequiredTextField<String>("ajax-msg", new Model<String>());
@@ -104,4 +137,90 @@ add(new AjaxFallbackDefaultDataTable<Contact>("table", columns,
             return true;  //To change body of implemented methods use File | Settings | File Templates.
         }
     }
+
+
+    /*
+    * A State class jsonified into an array and returned to the client
+    */
+    static class State {
+
+        State() {
+        }
+
+        State(String name) {
+            this.name = name;
+        }
+
+        String name;
+    }
+
+    private static class StatesDb {
+
+        private static final String[] states = new String[]{
+                "Alabama",
+                "Alaska",
+                "Arizona",
+                "Arkansas",
+                "California",
+                "Colorado",
+                "Connecticut",
+                "Delaware",
+                "Florida",
+                "Georgia",
+                "Hawaii",
+                "Idaho",
+                "Illinois",
+                "Indiana",
+                "Iowa",
+                "Kansas",
+                "Kentucky",
+                "Louisiana",
+                "Maine",
+                "Maryland",
+                "Massachusetts",
+                "Michigan",
+                "Minnesota",
+                "Mississippi",
+                "Missouri",
+                "Montana",
+                "Nebraska",
+                "Nevada",
+                "New Hampshire",
+                "New Jersey",
+                "New Mexico",
+                "New York",
+                "North Carolina",
+                "North Dakota",
+                "Ohio",
+                "Oklahoma",
+                "Oregon",
+                "Pennsylvania",
+                "Rhode Island",
+                "South Carolina",
+                "South Dakota",
+                "Tennessee",
+                "Texas",
+                "Utah",
+                "Vermont",
+                "Virginia",
+                "Washington",
+                "West Virginia",
+                "Wisconsin",
+                "Wyoming"
+        };
+
+        static List<State> getStatesLike(String target) {
+
+            List<State> matches = new ArrayList<State>();
+            for (String s : states) {
+                if (s.toLowerCase().startsWith(target.toLowerCase())) {
+                    State state = new State(s);
+                    matches.add(state);
+                }
+            }
+            return matches;
+        }
+
+    }
+
 }
